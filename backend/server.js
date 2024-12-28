@@ -18,6 +18,10 @@ app.use(express.json());
 
 app.use("/api/tasks", TaskRoutes);
 app.use("/api/users", UserRoutes);
+app.get('/', (req, res) => {
+  res.send("Hello World!")
+})
+
 
 const PORT = process.env.PORT || 5000;
 
