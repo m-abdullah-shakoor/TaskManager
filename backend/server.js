@@ -9,7 +9,7 @@ const app = express();
 connectDB();
 
 const corsOptions = {
-  origin: "*",
+  origin: `${process.env.FEORIGIN}`,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
