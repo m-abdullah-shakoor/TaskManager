@@ -9,7 +9,8 @@ const app = express();
 connectDB();
 app.use(
   cors({
-    origin: "https://task-manager-fe-virid.vercel.app",
+    // origin: "https://task-manager-fe-virid.vercel.app",
+    origin: "http://localhost:3000",
     methods: ["POST", "GET", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
@@ -24,7 +25,7 @@ app.use((req, res, next) => {
 app.use("/api/tasks", TaskRoutes);
 app.use("/api/users", UserRoutes);
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello World, We are LIVE!");
 });
 
 const PORT = process.env.PORT || 5000;

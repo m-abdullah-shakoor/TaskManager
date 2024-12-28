@@ -9,12 +9,15 @@ import {
 } from "../redux/taskSlice";
 import { logout } from "../redux/authSlice";
 import { IoMdAddCircleOutline } from "react-icons/io";
+import { MdLogout } from "react-icons/md";
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks.list);
-  const { isInitialized, isAuthenticated } = useSelector((state) => state.auth);
+  const { isInitialized, isAuthenticated, user } = useSelector(
+    (state) => state.auth
+  );
 
   const [filter, setFilter] = useState("all");
   const [selectedTask, setSelectedTask] = useState(null);
@@ -42,7 +45,17 @@ const Dashboard = () => {
         [...tasks].sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
       );
     } else if (filter === "status") {
-      setFilteredTasks(tasks.filter((task) => task.status === "completed"));
+      setFilteredTasks(
+        [...tasks].sort((a, b) => {
+          const statusOrder = {
+            pending: 0,
+            "in progress": 1,
+            completed: 2,
+          };
+
+          return statusOrder[a.status] - statusOrder[b.status];
+        })
+      );
     }
   }, [filter, tasks]);
 
@@ -127,23 +140,26 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="w-screen h-screen flex flex-col">
+    <div className="w-screen h-screen font-mono flex flex-col bg-[#514B96]">
       <div
         id="header"
-        className="h-16 bg-blue-600 text-white flex items-center justify-between px-4"
+        className="h-16 bg-[#514B96] text-white flex items-center justify-between px-4 sm:px-6"
       >
-        <h1>Task Manager</h1>
-        <button onClick={handleLogout} className="text-red-600">
-          Logout
+        <h1 className="text-3xl">Task Manager</h1>
+        <button onClick={handleLogout} className="text-2xl">
+          <MdLogout />
         </button>
       </div>
 
-      <div className="flex flex-1">
-        <div id="sidebar" className="w-72 bg-gray-800 text-white p-4">
+      <div className="flex flex-col sm:flex-row flex-1">
+        <div
+          id="sidebar"
+          className="w-full sm:w-72 bg-[#514B96] text-white p-4"
+        >
           <div className="flex flex-row items-center justify-between mb-4">
             <span>Filter Tasks</span>
             <select
-              className="bg-gray-700 text-white p-2 rounded"
+              className="bg-[#8a80f0a1] text-white p-2 rounded w-full sm:w-auto"
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
             >
@@ -157,7 +173,9 @@ const Dashboard = () => {
               <div
                 key={task._id}
                 className={`p-2 mb-2 rounded cursor-pointer ${
-                  selectedTask?._id === task._id ? "bg-blue-600" : "bg-gray-700"
+                  selectedTask?._id === task._id
+                    ? "bg-[#F47458]"
+                    : "bg-[#8a80f0a1]"
                 }`}
                 onClick={() => {
                   setSelectedTask(task);
@@ -170,19 +188,23 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div id="maincontent" className="flex-1 bg-gray-100 p-6">
-          <div className="my-2 border-b-2 border-gray-200">
+        <div
+          id="maincontent"
+          className="flex-1 bg-[#e6ecff] p-6 border rounded-xl sm:ml-4 mt-4 sm:mt-0"
+        >
+          <div className="my-2 border-b-2 border-[#e0dbda] flex justify-between items-center">
+            <h1 className="text-3xl">Welcome to your Dashboard {user.name}!</h1>
             <button
               onClick={handleCreateTask}
-              className="rounded-xl text-xl bg-sky-600 text-white w-28 flex flex-row justify-center items-center gap-1 p-2 my-1"
+              className="rounded-xl text-xl bg-[#F47458] text-white w-auto flex flex-row justify-center items-center gap-1 p-2 my-1"
             >
-              <span>Create</span> <IoMdAddCircleOutline className="" />
+              <span>Add Task</span> <IoMdAddCircleOutline />
             </button>
           </div>
           {isEditMode ? (
             <div className="task-details">
               <input
-                className="w-full text-2xl font-bold mb-4 border-spacing-2 border rounded-lg bg-white p-5 focus:outline-none "
+                className="w-full text-2xl font-bold mb-4 border-spacing-2 border-[#F47458] rounded-lg bg-white p-5 focus:outline-none"
                 type="text"
                 name="title"
                 placeholder={selectedTask ? "" : "Add Task Title Here..."}
@@ -194,8 +216,8 @@ const Dashboard = () => {
                 <p className="text-red-500 text-xs">{formErrors.title}</p>
               )}
 
-              <div className="flex flex-row justify-between">
-                <div className="mb-2 border-spacing-2 border rounded-lg bg-white p-5 min-w-md w-[40%]">
+              <div className="flex flex-col sm:flex-row justify-between">
+                <div className="mb-2 border-spacing-2 border-[#F47458] rounded-lg bg-white p-5 min-w-md sm:w-[40%]">
                   <strong>Due Date:</strong>{" "}
                   <input
                     type="date"
@@ -211,25 +233,26 @@ const Dashboard = () => {
                   />
                 </div>
 
-                <div className="mb-2 border-spacing-2 border rounded-lg bg-white p-5 min-w-md w-[40%]">
+                <div className="mb-2 border-spacing-2 border-[#F47458] rounded-lg bg-white p-5 min-w-md sm:w-[40%]">
                   <strong>Status: </strong>
                   <input
                     type="text"
                     name="status"
                     value={selectedTask ? selectedTask.status : newTask.status}
                     onChange={handleInputChange}
-                    className="focus:outline-none w-full"
+                    className="focus:outline-none"
                     disabled={!isEditMode}
                   />
                 </div>
               </div>
-              <div className="flex flex-row justify-between">
-                <div className="w-[40%]">
+
+              <div className="flex flex-col sm:flex-row justify-between">
+                <div className="w-full sm:w-[40%]">
                   {formErrors.dueDate && (
                     <p className="text-red-500 text-xs">{formErrors.dueDate}</p>
                   )}
                 </div>
-                <div className="w-[40%]">
+                <div className="w-full sm:w-[40%]">
                   {formErrors.status && (
                     <p className="text-red-500 text-xs">{formErrors.status}</p>
                   )}
@@ -246,7 +269,7 @@ const Dashboard = () => {
                       : newTask.description
                   }
                   onChange={handleInputChange}
-                  className="w-full my-4 p-5 border rounded-lg bg-white focus:outline-none h-40"
+                  className="w-full my-4 p-5 border-[#F47458] rounded-lg bg-white focus:outline-none h-40"
                   disabled={!isEditMode}
                 />
                 {formErrors.description && (
@@ -261,13 +284,13 @@ const Dashboard = () => {
                   <>
                     <button
                       onClick={handleSaveTask}
-                      className="bg-blue-600 text-white px-4 p-2 rounded-xl w-28"
+                      className="bg-[#F47458] text-white px-4 p-2 rounded-xl w-28"
                     >
                       Save
                     </button>
                     <button
                       onClick={handleCancelClick}
-                      className="bg-gray-600 text-white px-4 p-2 rounded-xl w-28"
+                      className="bg-[#A3AED0] text-white px-4 p-2 rounded-xl w-28"
                     >
                       Cancel
                     </button>
@@ -275,7 +298,7 @@ const Dashboard = () => {
                 ) : (
                   <button
                     onClick={() => setIsEditMode(true)}
-                    className="bg-green-600 text-white px-4 p-2 rounded-xl w-28"
+                    className="bg-[#A3AED0] text-white px-4 p-2 rounded-xl w-28"
                   >
                     Edit
                   </button>
@@ -284,33 +307,33 @@ const Dashboard = () => {
             </div>
           ) : selectedTask ? (
             <div className="task-details">
-              <h2 className="text-2xl font-bold mb-4 border-spacing-2 border rounded-lg bg-white p-5 ">
+              <h2 className="text-2xl font-bold mb-4 border-spacing-2 border-[#F47458] rounded-lg bg-white p-5">
                 {selectedTask.title}
               </h2>
-              <div className="flex flex-row justify-between">
-                <div className="mb-2 border-spacing-2 border rounded-lg bg-white p-5 min-w-md w-[40%]">
+              <div className="flex flex-col sm:flex-row justify-between">
+                <div className="mb-2 border-spacing-2 border-[#F47458] rounded-lg bg-white p-5 min-w-md sm:w-[40%]">
                   <strong>Due Date:</strong>{" "}
                   {new Date(selectedTask.dueDate).toLocaleDateString()}
                 </div>
-                <div className="mb-2 border-spacing-2 border rounded-lg bg-white p-5 min-w-md w-[40%]">
+                <div className="mb-2 border-spacing-2 border-[#F47458] rounded-lg bg-white p-5 min-w-md sm:w-[40%]">
                   <strong>Status:</strong> {selectedTask.status || "N/A"}
                 </div>
               </div>
               <div className="my-6">
                 <strong>Description</strong>
-                <div className="my-4 border-spacing-2 border rounded-lg bg-white p-5 h-40">
+                <div className="my-4 border-spacing-2 border-[#F47458] rounded-lg bg-white p-5 h-40">
                   {selectedTask.description || "No description provided."}
                 </div>
               </div>
               <div className="flex justify-around">
                 <button
                   onClick={() => setIsEditMode(true)}
-                  className="bg-blue-600 text-white px-4 p-2 rounded-xl w-28"
+                  className="bg-[#F47458] text-white px-4 p-2 rounded-xl w-28"
                 >
                   Edit
                 </button>
                 <button
-                  className="bg-red-600 text-white px-4 p-2 rounded-xl w-28"
+                  className="bg-[#A3AED0] text-white px-4 p-2 rounded-xl w-28"
                   onClick={() => handleDeleteClick(selectedTask._id)}
                 >
                   Delete

@@ -43,7 +43,7 @@ const LoginForm = () => {
     <div className="w-screen h-screen flex justify-center items-center">
       <form
         onSubmit={handleSubmit}
-        className=" max-w-md min-w-[35%] p-4 bg-white shadow-md rounded font-mono"
+        className=" max-w-md w-[35%] p-4 bg-white shadow-md rounded font-mono"
       >
         <img src="/greet1.ico" alt="greet" sizes="" srcset="" className="h-20 w-20 mx-auto  rounded-3xl  " />
         <h2 className="text-2xl m-4 w-fit mx-auto">Welcome Back!</h2>
@@ -82,7 +82,7 @@ const LoginForm = () => {
 
         <button
           type="submit"
-          className="w-full p-2 bg-blue-600 text-white rounded"
+          className="w-full p-2 bg-[#573d78d8] text-white rounded"
         >
           Login
         </button>
