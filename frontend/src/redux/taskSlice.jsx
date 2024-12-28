@@ -13,7 +13,7 @@ export const fetchTasks = createAsyncThunk(
     }
 
     const { data } = await axios.get(
-      `${BACKENDBASEURL}/api/tasks/fetchall?userId=${userId}`,
+      `https://task-manager-zeta-one.vercel.app/api/tasks/fetchall?userId=${userId}`,
       {
         headers: { Authorization: `Bearer ${auth.token || ""}` },
       }
@@ -36,7 +36,7 @@ export const createTask = createAsyncThunk(
     }
 
     const { data } = await axios.post(
-      `${BACKENDBASEURL}/api/tasks/create?userId=${userId}`,
+      `https://task-manager-zeta-one.vercel.app/api/tasks/create?userId=${userId}`,
       { ...taskData, userId },
       {
         headers: { Authorization: `Bearer ${auth.token || ""}` },
@@ -56,7 +56,7 @@ export const updateTask = createAsyncThunk(
     }
 
     const { data } = await axios.put(
-      `${BACKENDBASEURL}/api/tasks/update/${taskData._id}`,
+      `https://task-manager-zeta-one.vercel.app/api/tasks/update/${taskData._id}`,
       taskData,
       {
         headers: { Authorization: `Bearer ${auth.token || ""}` },
@@ -75,7 +75,7 @@ export const deleteTask = createAsyncThunk(
       throw new Error("User not authenticated");
     }
 
-    await axios.delete(`${BACKENDBASEURL}/api/tasks/delete/${taskId}`, {
+    await axios.delete(`https://task-manager-zeta-one.vercel.app/api/tasks/delete/${taskId}`, {
       headers: { Authorization: `Bearer ${auth.token || ""}` },
     });
     return taskId;
