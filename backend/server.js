@@ -8,7 +8,11 @@ const UserRoutes = require("./routes/UserRoutes");
 const app = express();
 connectDB();
 
-app.use(cors());
+app.use(
+  cors({
+    methods: ["POST", "GET", "PUT", "DELETE"],
+  })
+);
 app.use(express.json());
 
 app.use("/api/tasks", TaskRoutes);
