@@ -12,12 +12,9 @@ export const fetchTasks = createAsyncThunk(
       throw new Error("User not authenticated");
     }
 
-    const { data } = await axios.get(
-      `http://localhost:5000/api/tasks/fetchall?userId=${userId}`,
-      {
-        headers: { Authorization: `Bearer ${auth.token || ""}` },
-      }
-    );
+    const { data } = await axios.get(`/api/tasks/fetchall?userId=${userId}`, {
+      headers: { Authorization: `Bearer ${auth.token || ""}` },
+    });
     console.log(data);
     if (!data || data.length === 0) {
       console.log("No data");
@@ -36,7 +33,7 @@ export const createTask = createAsyncThunk(
     }
 
     const { data } = await axios.post(
-      `http://localhost:5000/api/tasks/create?userId=${userId}`,
+      `/api/tasks/create?userId=${userId}`,
       { ...taskData, userId },
       {
         headers: { Authorization: `Bearer ${auth.token || ""}` },
@@ -56,7 +53,7 @@ export const updateTask = createAsyncThunk(
     }
 
     const { data } = await axios.put(
-      `http://localhost:5000/api/tasks/update/${taskData._id}`,
+      `/api/tasks/update/${taskData._id}`,
       taskData,
       {
         headers: { Authorization: `Bearer ${auth.token || ""}` },
@@ -75,7 +72,7 @@ export const deleteTask = createAsyncThunk(
       throw new Error("User not authenticated");
     }
 
-    await axios.delete(`http://localhost:5000/api/tasks/delete/${taskId}`, {
+    await axios.delete(`/api/tasks/delete/${taskId}`, {
       headers: { Authorization: `Bearer ${auth.token || ""}` },
     });
     return taskId;
@@ -99,7 +96,7 @@ const taskSlice = createSlice({
         state.loading = false;
         console.error(action.error.message);
       })
-
+      
       .addCase(createTask.pending, (state) => {
         state.loading = true;
       })
@@ -117,9 +114,7 @@ const taskSlice = createSlice({
       })
       .addCase(updateTask.fulfilled, (state, action) => {
         const updatedTask = action.payload;
-        const index = state.list.findIndex(
-          (task) => task._id === updatedTask._id
-        );
+        const index = state.list.findIndex((task) => task._id === updatedTask._id);
         if (index !== -1) {
           state.list[index] = updatedTask;
         }
