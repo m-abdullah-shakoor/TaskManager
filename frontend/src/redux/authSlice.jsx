@@ -38,7 +38,7 @@ export const { setAuth, logout, setUser, setInitialized } = authSlice.actions;
 export const login = (credentials) => async (dispatch) => {
   try {
     console.log("Login", credentials, "dispatcher called!");
-    const { data } = await axios.post(`https://task-manager-zeta-one.vercel.app/api/users/login`, credentials);
+    const { data } = await axios.post(`http://localhost:5000/api/users/login`, credentials);
     const { _id, name, email, token } = data;
     if (data) {
       Cookies.set("token", token, { expires: 2 });

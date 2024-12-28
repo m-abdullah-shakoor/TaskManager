@@ -9,7 +9,7 @@ const app = express();
 connectDB();
 
 const corsOptions = {
-  origin: "*",
+  origin: "https://task-manager-kuy0if4pw-m-abdullah-shakoors-projects.vercel.app",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
@@ -21,11 +21,6 @@ app.use(express.json());
 app.use("/api/tasks", TaskRoutes);
 app.use("/api/users", UserRoutes);
 app.get("/", (req, res) => {
-res.setHeader("Access-Control-Allow-Origin", "*")
-res.setHeader("Access-Control-Allow-Credentials", "true");
-res.setHeader("Access-Control-Max-Age", "1800");
-res.setHeader("Access-Control-Allow-Headers", "content-type");
-res.setHeader( "Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS" ); 
 res.send("Hello, world!")
  });
 const PORT = process.env.PORT || 5000;
