@@ -12,7 +12,7 @@ export const fetchTasks = createAsyncThunk(
       throw new Error("User not authenticated");
     }
 
-    const { data } = await axios.get(`/api/tasks/fetchall?userId=${userId}`, {
+    const { data } = await axios.get(`https://task-manager-be-seven.vercel.app/api/tasks/fetchall?userId=${userId}`, {
       headers: { Authorization: `Bearer ${auth.token || ""}` },
     });
     console.log(data);
@@ -33,7 +33,7 @@ export const createTask = createAsyncThunk(
     }
 
     const { data } = await axios.post(
-      `/api/tasks/create?userId=${userId}`,
+      `https://task-manager-be-seven.vercel.app/api/tasks/create?userId=${userId}`,
       { ...taskData, userId },
       {
         headers: { Authorization: `Bearer ${auth.token || ""}` },
@@ -53,7 +53,7 @@ export const updateTask = createAsyncThunk(
     }
 
     const { data } = await axios.put(
-      `/api/tasks/update/${taskData._id}`,
+      `https://task-manager-be-seven.vercel.app/api/tasks/update/${taskData._id}`,
       taskData,
       {
         headers: { Authorization: `Bearer ${auth.token || ""}` },
@@ -72,7 +72,7 @@ export const deleteTask = createAsyncThunk(
       throw new Error("User not authenticated");
     }
 
-    await axios.delete(`/api/tasks/delete/${taskId}`, {
+    await axios.delete(`https://task-manager-be-seven.vercel.app/api/tasks/delete/${taskId}`, {
       headers: { Authorization: `Bearer ${auth.token || ""}` },
     });
     return taskId;
