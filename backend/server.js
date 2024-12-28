@@ -9,7 +9,7 @@ const app = express();
 connectDB();
 
 const corsOptions = {
-  origin: "https://task-manager-kuy0if4pw-m-abdullah-shakoors-projects.vercel.app",
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
 };
