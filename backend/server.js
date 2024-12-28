@@ -7,7 +7,6 @@ const UserRoutes = require("./routes/UserRoutes");
 
 const app = express();
 connectDB();
-app.options("*", cors());
 app.use(
   cors({
     origin: "https://task-manager-fe-virid.vercel.app",
@@ -16,6 +15,7 @@ app.use(
     credentials: true,
   })
 );
+app.options("*", cors());
 app.use(express.json());
 app.use((req, res, next) => {
   console.log(`${req.method} request to ${req.url}`);
