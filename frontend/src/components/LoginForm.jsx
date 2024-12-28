@@ -29,7 +29,7 @@ const LoginForm = () => {
     }
 
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // No errors
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
@@ -43,7 +43,7 @@ const LoginForm = () => {
     <div className="w-screen h-screen flex justify-center items-center">
       <form
         onSubmit={handleSubmit}
-        className=" max-w-md min-w-[45%] p-4 bg-white shadow-md rounded font-mono"
+        className=" max-w-md min-w-[35%] p-4 bg-white shadow-md rounded font-mono"
       >
         <img src="/greet1.ico" alt="greet" sizes="" srcset="" className="h-20 w-20 mx-auto  rounded-3xl  " />
         <h2 className="text-2xl m-4 w-fit mx-auto">Welcome Back!</h2>

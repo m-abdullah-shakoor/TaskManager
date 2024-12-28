@@ -8,26 +8,32 @@ const authSlice = createSlice({
     user: null,
     token: null,
     isAuthenticated: false,
+    isInitialized: false,
   },
   reducers: {
     setAuth(state, action) {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isAuthenticated = true;
+      state.isInitialized = true;
     },
     logout(state) {
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
+      state.isInitialized = true;
       Cookies.remove("token");
     },
     setUser(state, action) {
       state.user = action.payload;
     },
+    setInitialized(state) {
+      state.isInitialized = true;
+    },
   },
 });
 
-export const { setAuth, logout, setUser } = authSlice.actions;
+export const { setAuth, logout, setUser, setInitialized } = authSlice.actions;
 
 export const login = (credentials) => async (dispatch) => {
   try {

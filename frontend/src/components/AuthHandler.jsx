@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setAuth, logout } from "../redux/authSlice";
+import { setAuth, logout, setInitialized } from "../redux/authSlice";
 import Cookies from "js-cookie";
 import {jwtDecode} from "jwt-decode";
 
@@ -22,7 +22,7 @@ const AuthHandler = () => {
           dispatch(
             setAuth({
               user: {
-                _id: decodedToken._id,
+                _id: decodedToken.id,
                 name: decodedToken.name,
                 email: decodedToken.email,
               },
@@ -38,6 +38,7 @@ const AuthHandler = () => {
     } else {
       dispatch(logout());
     }
+    dispatch(setInitialized());
   }, [dispatch]);
 
   return null;
