@@ -7,6 +7,7 @@ import store from "./redux/store";
 import AuthHandler from "./components/AuthHandler";
 import PrivateRoute from "./components/PrivateRoute";
 
+
 const App = () => {
   return (
     <Provider store={store}>

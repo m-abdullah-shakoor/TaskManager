@@ -43,13 +43,17 @@ const LoginForm = () => {
     <div className="w-screen h-screen flex justify-center items-center">
       <form
         onSubmit={handleSubmit}
-        className=" max-w-md w-[35%] p-4 bg-white shadow-md rounded font-mono"
+        className="max-w-md w-[90%] sm:w-[70%] md:w-[50%] lg:w-[35%] p-4 bg-white shadow-md rounded font-mono"
       >
-        <img src="/greet1.ico" alt="greet" sizes="" srcset="" className="h-20 w-20 mx-auto  rounded-3xl  " />
-        <h2 className="text-2xl m-4 w-fit mx-auto">Welcome Back!</h2>
+        <img
+          src="/greet1.ico"
+          alt="greet"
+          className="h-16 w-16 sm:h-20 sm:w-20 mx-auto rounded-3xl"
+        />
+        <h2 className="text-xl sm:text-2xl m-4 w-fit mx-auto">Welcome Back!</h2>
 
         <div className="mb-4">
-          <label className="block mb-2">Email</label>
+          <label className="block mb-2 text-sm sm:text-base">Email</label>
           <input
             type="email"
             value={email}
@@ -60,12 +64,14 @@ const LoginForm = () => {
             required
           />
           {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            <p className="text-red-500 text-xs sm:text-sm mt-1">
+              {errors.email}
+            </p>
           )}
         </div>
 
         <div className="mb-4">
-          <label className="block mb-2">Password</label>
+          <label className="block mb-2 text-sm sm:text-base">Password</label>
           <input
             type="password"
             value={password}
@@ -76,13 +82,15 @@ const LoginForm = () => {
             required
           />
           {errors.password && (
-            <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            <p className="text-red-500 text-xs sm:text-sm mt-1">
+              {errors.password}
+            </p>
           )}
         </div>
 
         <button
           type="submit"
-          className="w-full p-2 bg-[#573d78d8] text-white rounded"
+          className="w-full p-2 bg-[#514B96] text-white rounded text-sm sm:text-base"
         >
           Login
         </button>

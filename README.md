@@ -3,12 +3,12 @@
 ## Overview
 
 The Task Manager Application is a full-stack project designed to enable users to manage tasks efficiently. It provides user authentication and CRUD functionality for tasks. The frontend is built using React, and the backend is powered by Express.js with MongoDB as the database. The application is deployed on Vercel.
+
 #### Link to deployment
 
 ```bash
 https://task-manager-fe-virid.vercel.app/
 ```
-
 
 ### Features
 
@@ -151,10 +151,8 @@ Deploying both the frontend and backend from the same repository required config
 
 ---
 
-
 ## Interfaces
 
-![Task Manager Dashboard](./img/Dashboard.jpeg "Task Manager Home Page")
----
-![Login](./img/Login.jpeg "Login Page")
----
+## ![Login](./img/Login.jpeg "Login Page")
+
+## ![Task Manager Dashboard](./img/Dashboard.jpeg "Task Manager Home Page")
