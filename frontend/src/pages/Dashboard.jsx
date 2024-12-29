@@ -154,7 +154,7 @@ const Dashboard = () => {
       <div className="flex flex-col sm:flex-row flex-1">
         <div
           id="sidebar"
-          className="w-full h-48 sm:h-screen sm:w-72 bg-[#514B96] text-white p-4 flex flex-col"
+          className="w-full h-48 sm:h-screen sm:w-96 bg-[#514B96] text-white p-4 flex flex-col"
         
         >
           <div className="flex flex-row items-center justify-between mb-4">
@@ -175,7 +175,7 @@ const Dashboard = () => {
             {filteredTasks.map((task) => (
               <div
                 key={task._id}
-                className={`p-2 mb-2 rounded cursor-pointer ${
+                className={`p-2 mb-2 rounded cursor-pointer flex flex-row justify-between items-center ${
                   selectedTask?._id === task._id
                     ? "bg-[#F47458]"
                     : "bg-[#8a80f0a1]"
@@ -185,7 +185,11 @@ const Dashboard = () => {
                   setIsEditMode(false);
                 }}
               >
+                <span className="w-70%]">
+
                 {task.title}
+                </span>
+                <span className="w-70%]">{new Date(task.dueDate).toLocaleDateString()}</span>
               </div>
             ))}
           </div>
@@ -193,7 +197,7 @@ const Dashboard = () => {
 
         <div
           id="maincontent"
-          className="flex-1 bg-[#e6ecff] p-6 border rounded-xl sm:ml-4 mt-4 sm:mt-0"
+          className="flex-1 bg-[#e6ecff] p-6 border rounded-xl  mt-4 sm:mt-0"
         >
           <div className="my-2 border-b-2 border-[#e0dbda] flex justify-between items-center">
             <h1 className="text-xl sm:text-3xl w-[70%] sm:w-[85%] hidden sm:block flex-wrap text-wrap">Welcome to your Dashboard {user.name}!</h1>
