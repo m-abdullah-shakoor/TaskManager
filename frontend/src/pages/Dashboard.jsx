@@ -158,7 +158,7 @@ const Dashboard = () => {
         
         >
           <div className="flex flex-row items-center justify-between mb-4">
-            <span>Filter Tasks</span>
+            <span>Your Tasks</span>
             <select
               className="bg-[#8a80f0a1] text-white p-2 rounded w-auto"
               value={filter}
