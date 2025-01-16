@@ -41,10 +41,12 @@ exports.registerUser = async (req, res) => {
 };
 
 exports.loginUser = async (req, res) => {
+  console.log(req.body, "user creds");
   try {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({email});
+    console.log(user, "array");
 
     if (user && (await bcrypt.compare(password, user.password))) {
       token = await generateToken(user._id, user.name, user.email);
